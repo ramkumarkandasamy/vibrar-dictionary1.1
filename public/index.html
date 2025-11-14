@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VIPRAR Dictionary (EN → TA)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="https://rigveda-online.github.io/1/images/emblem.png" />
+</head>
+<body>
+  <header>
+    <div class="emblem">
+      <img src="https://rigveda-online.github.io/1/images/emblem.png" alt="emblem" />
+      <div>
+        <h1><span>VIPRAR</span> Dictionary</h1>
+        <p class="subtitle">English → Tamil • Transliteration • Meanings</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="search-area">
+      <div class="search-wrap">
+        <input id="searchInput" type="text" placeholder="Enter English word" autofocus />
+        <button id="searchBtn" title="Search">Search</button>
+      </div>
+    </section>
+
+    <section id="results" class="results">
+        <div class="search">
+            <h2>Search Result</h2>
+            <img src="divider.png" class="divider" />
+        </div>
+      
+      <div id="meaningBox" class="meaning">Type a word above to see its meaning and Tamil translation.</div>
+       <img src="divider.png" class="divider" />
+    </section>
+
+    <section class="recent">
+      <h3>Recent Searches</h3>
+      <ul id="recentList"></ul>
+    </section>
+  </main>
+
+  <footer>© 2025 VIPRAR Dictionary — Inspired by Rigveda Online</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

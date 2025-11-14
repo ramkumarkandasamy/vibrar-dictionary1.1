@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Noto+Serif+Tamil:wght@400;700&display=swap');
+
+:root {
+  --gold-1: #9b7c2f;
+  --gold-2: #e0c675;
+  --bg: #fefcf4;
+  --muted: #6b5840;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  background: var(--bg);
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  background: linear-gradient(90deg, var(--gold-1) 0%, var(--gold-2) 100%);
+  color: #fff;
+  padding: 22px 18px;
+  border-bottom: 4px solid rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+header .emblem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+header img { width: 56px; height: 56px; display:block; }
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+
+header h1 span { color: #fff7d1; }
+
+.subtitle { margin: 4px 0 0; color: rgba(255,255,255,0.95); font-size: 0.95rem; }
+
+/* Search area */
+main { max-width: 1100px; margin: 28px auto; padding: 0 18px; }
+
+.search-area { display: flex; justify-content: center; margin-bottom: 18px; }
+
+.search-wrap {
+  display: flex;
+  width: 100%;
+  max-width: 680px;
+  gap: 0;
+  align-items: center;
+}
+
+.search-wrap input {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 18px;
+  border: 2px solid #e6d9a3;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  background: #fffdf6;
+  outline: none;
+}
+
+.search-wrap button {
+  padding: 12px 18px;
+  background: var(--gold-1);
+  color: #fff;
+  border: 2px solid #a07a2f;
+  border-radius: 0 10px 10px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-wrap button:hover { background: #85651f; }
+.search{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.divider{
+    width: 30%;
+    opacity: 0.5;
+}
+
+/* Result box */
+.results {
+    background: #fff;
+  /* background: #fff7d1; */
+  border: 1px solid #efe1a6;
+  text-align: center;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(25,25,25,0.06);
+  margin-bottom: 20px;
+}
+
+.results h2 { color: var(--gold-1); margin: 0 0 10px; font-size: 18px; border-bottom: 2px solid var(--gold-2); padding-bottom: 6px; display: inline-block; }
+
+.meaning { font-size: 18px; color: #222; line-height: 1.6; }
+
+.meaning .tamil { font-family: 'Noto Serif Tamil', serif; color: var(--gold-1); font-weight: 700; font-size: 20px; display:block; margin-top:10px; }
+
+.recent { max-width: 680px; margin: 0 auto 40px; }
+
+.recent h3 { color: var(--muted); margin: 0 0 10px; font-size: 16px; }
+
+.recent ul { list-style: none; padding-left: 0; margin-top: 8px; }
+
+.recent li {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fffdf6;
+  margin-bottom: 8px;
+  border: 1px solid #efe1a6;
+  font-size: 15px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 14px 10px;
+  color: #5b4932;
+  background: #fbf6e8;
+  border-top: 1px solid #efe1a6;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  header h1 { font-size: 18px; }
+  .search-wrap input { font-size: 16px; }
+  .meaning { font-size: 16px; }
+}
