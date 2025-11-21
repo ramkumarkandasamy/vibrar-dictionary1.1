@@ -4,9 +4,6 @@ const express = require("express");
 const cors = require("cors");
 const { transliterate } = require("transliteration");
 
-// Node 18+ has built-in fetch. If below 18, uncomment below line:
-// const fetch = (...args) => import("node-fetch").then(({default: fetch}) => fetch(...args));
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -15,10 +12,10 @@ app.use(express.static("public"));
 const DICTIONARY_API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 const MYMEMORY_API = "https://api.mymemory.translated.net/get";
 
-// temporary in-memory storage
+// Recent history storage
 let searchHistory = [];
 
-// Utility function to fetch JSON safely
+// Safe JSON fetcher
 async function fetchJson(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000);
@@ -33,49 +30,83 @@ async function fetchJson(url) {
   }
 }
 
-// main route
-app.get("/api/word/:term", async (req, res) => {
-  const term = req.params.term?.trim();
-  if (!term) return res.status(400).json({ error: "No term" });
+/*
+====================================================
+   🔥 MAIN ROUTE → Translate + Dictionary + Transliteration
+====================================================
+POST /api/translate
+BODY:
+{
+  "text": "hello",
+  "sourceLang": "en",
+  "targetLang": "ta"
+}
+====================================================
+*/
+
+app.post("/api/translate", async (req, res) => {
+  const { text, sourceLang, targetLang } = req.body;
+
+  if (!text || !sourceLang || !targetLang) {
+    return res.status(400).json({ error: "Missing text or language params" });
+  }
 
   try {
-    // 1️⃣ English meaning
-    const dictData = await fetchJson(`${DICTIONARY_API}${encodeURIComponent(term)}`).catch(() => null);
+    let englishDefinition = null;
 
-    let englishText = null;
-    if (Array.isArray(dictData) && dictData[0]) {
-      const entry = dictData[0];
-      const meaning = entry.meanings?.[0];
-      englishText = {
-        definition: meaning?.definitions?.[0]?.definition || null,
-        example: meaning?.definitions?.[0]?.example || null,
-        partOfSpeech: meaning?.partOfSpeech || null
-      };
+    // 1️⃣ English Dictionary Meaning (only when English is source)
+    if (sourceLang === "en") {
+      const dictData = await fetchJson(`${DICTIONARY_API}${encodeURIComponent(text)}`).catch(() => null);
+
+      if (Array.isArray(dictData) && dictData[0]) {
+        const entry = dictData[0];
+        const meaning = entry.meanings?.[0];
+        englishDefinition = {
+          definition: meaning?.definitions?.[0]?.definition || null,
+          example: meaning?.definitions?.[0]?.example || null,
+          partOfSpeech: meaning?.partOfSpeech || null
+        };
+      }
     }
 
-    // 2️⃣ Tamil translation
-    const textToTranslate = englishText?.definition || term;
-    const mmUrl = `${MYMEMORY_API}?q=${encodeURIComponent(textToTranslate)}&langpair=en|ta`;
+    // Select text to translate
+    const translateText = englishDefinition?.definition || text;
+
+    // 2️⃣ Main Translation (any language direction)
+    const mmUrl = `${MYMEMORY_API}?q=${encodeURIComponent(translateText)}&langpair=${sourceLang}|${targetLang}`;
     const mmData = await fetchJson(mmUrl).catch(() => null);
-    const tamilText = mmData?.responseData?.translatedText || null;
+    const translatedText = mmData?.responseData?.translatedText || null;
 
-    // 3️⃣ Tamil transliteration
-    const tamilTranslit = tamilText ? transliterate(tamilText) : null;
+    // 3️⃣ Transliteration
+    let translitValue = null;
 
-    // 4️⃣ Save to memory (for recent searches)
+    if (targetLang === "ta") {
+      // Tamil → Show Tamil pronunciation in English
+      translitValue = transliterate(translatedText);
+    } else {
+      // English side transliteration
+      translitValue = transliterate(text);
+    }
+
+    // 4️⃣ Save to recent searches
     searchHistory.unshift({
-      word: term,
-      tamil: tamilText,
-      tamil_transliteration: tamilTranslit,
+      input: text,
+      source: sourceLang,
+      target: targetLang,
+      translated: translatedText,
+      transliteration: translitValue,
       searched_at: new Date().toISOString()
     });
-    if (searchHistory.length > 50) searchHistory.pop(); // limit to 50 items
+    if (searchHistory.length > 50) searchHistory.pop();
 
+    // 5️⃣ Response
     res.json({
-      word: term,
-      english: englishText,
-      tamil: tamilText,
-      tamil_transliteration: tamilTranslit
+      input: text,
+      sourceLang,
+      targetLang,
+      englishDefinition,
+      translatedText,
+      transliteration: translitValue
     });
 
   } catch (err) {
@@ -84,7 +115,7 @@ app.get("/api/word/:term", async (req, res) => {
   }
 });
 
-// get recent
+// Get recent search history
 app.get("/api/recent", (req, res) => {
   res.json(searchHistory);
 });
