@@ -17,6 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* HEADER */
 header {
   background: linear-gradient(90deg, var(--gold-1) 0%, var(--gold-2) 100%);
   color: #fff;
@@ -33,7 +34,11 @@ header .emblem {
   margin: 0 auto;
 }
 
-header img { width: 56px; height: 56px; display:block; }
+header img {
+  width: 56px;
+  height: 56px;
+  display: block;
+}
 
 header h1 {
   margin: 0;
@@ -42,14 +47,31 @@ header h1 {
   text-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 
-header h1 span { color: #fff7d1; }
+header h1 span {
+  color: #fff7d1;
+}
 
-.subtitle { margin: 4px 0 0; color: rgba(255,255,255,0.95); font-size: 0.95rem; }
+.subtitle {
+  margin: 4px 0 0;
+  color: rgba(255,255,255,0.95);
+  font-size: 0.95rem;
+}
 
-/* Search area */
-main { max-width: 1100px; margin: 28px auto; padding: 0 18px; }
 
-.search-area { display: flex; justify-content: center; margin-bottom: 18px; }
+/* MAIN WRAPPER */
+main {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 18px;
+}
+
+
+/* SEARCH AREA */
+.search-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
 
 .search-wrap {
   display: flex;
@@ -80,22 +102,26 @@ main { max-width: 1100px; margin: 28px auto; padding: 0 18px; }
   cursor: pointer;
 }
 
-.search-wrap button:hover { background: #85651f; }
-.search{
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.divider{
-    width: 30%;
-    opacity: 0.5;
+.search-wrap button:hover {
+  background: #85651f;
 }
 
-/* Result box */
+.search {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.divider {
+  width: 30%;
+  opacity: 0.5;
+}
+
+
+/* RESULT BOX */
 .results {
-    background: #fff;
-  /* background: #fff7d1; */
+  background: #fff;
   border: 1px solid #efe1a6;
   text-align: center;
   padding: 22px;
@@ -104,17 +130,48 @@ main { max-width: 1100px; margin: 28px auto; padding: 0 18px; }
   margin-bottom: 20px;
 }
 
-.results h2 { color: var(--gold-1); margin: 0 0 10px; font-size: 18px; border-bottom: 2px solid var(--gold-2); padding-bottom: 6px; display: inline-block; }
+.results h2 {
+  color: var(--gold-1);
+  margin: 0 0 10px;
+  font-size: 18px;
+  border-bottom: 2px solid var(--gold-2);
+  padding-bottom: 6px;
+  display: inline-block;
+}
 
-.meaning { font-size: 18px; color: #222; line-height: 1.6; }
+.meaning {
+  font-size: 18px;
+  color: #222;
+  line-height: 1.6;
+}
 
-.meaning .tamil { font-family: 'Noto Serif Tamil', serif; color: var(--gold-1); font-weight: 700; font-size: 20px; display:block; margin-top:10px; }
+.meaning .tamil {
+  font-family: 'Noto Serif Tamil', serif;
+  color: var(--gold-1);
+  font-weight: 700;
+  font-size: 20px;
+  display: block;
+  margin-top: 10px;
+}
 
-.recent { max-width: 680px; margin: 0 auto 40px; }
 
-.recent h3 { color: var(--muted); margin: 0 0 10px; font-size: 16px; }
+/* RECENT SEARCHES */
+.recent {
+  max-width: 680px;
+  margin: 0 auto 40px;
+}
 
-.recent ul { list-style: none; padding-left: 0; margin-top: 8px; }
+.recent h3 {
+  color: var(--muted);
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.recent ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 8px;
+}
 
 .recent li {
   padding: 8px 10px;
@@ -125,7 +182,8 @@ main { max-width: 1100px; margin: 28px auto; padding: 0 18px; }
   font-size: 15px;
 }
 
-/* Footer */
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 14px 10px;
@@ -135,9 +193,56 @@ footer {
   font-size: 14px;
 }
 
-/* Responsive */
+
+/* RESPONSIVE */
 @media (max-width: 640px) {
   header h1 { font-size: 18px; }
   .search-wrap input { font-size: 16px; }
   .meaning { font-size: 16px; }
+}
+
+
+/* .lang-select {
+  padding: 10px 12px;
+  border: 2px solid #e6d9a3;
+  border-radius: 10px;
+  background: #fffdf6;
+  font-size: 16px;
+  margin-bottom: 14px;
+  cursor: pointer;
+} */
+
+/* Language Selector */
+.lang-select {
+  width: 100%;
+  max-width: 200px;
+  /* margin-top: 12px; */
+  padding: 10px 12px;
+  padding: 13px;
+  border: 2px solid #e6d9a3;
+  border-radius: 0px;
+  background: #fffdf6;
+  font-size: 16px;
+  color: #444;
+  /* margin: 0 auto 14px; */
+  display: block;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.lang-select:focus,
+.lang-select:hover {
+  border-color: var(--gold-1);
+  box-shadow: 0 0 4px rgba(155,124,47,0.3);
+}
+
+/* For mobile screens */
+@media (max-width: 640px) {
+  .lang-select {
+    font-size: 12px;
+    padding: 11px;
+    /* padding: 9px 10px; */
+    max-width: 100%;
+  }
 }

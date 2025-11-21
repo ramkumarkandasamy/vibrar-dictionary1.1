@@ -3,43 +3,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>VIPRAR Dictionary (EN → TA)</title>
+  <title>VIPRAR Translator & Dictionary</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="https://rigveda-online.github.io/1/images/emblem.png" />
 </head>
 <body>
+
   <header>
     <div class="emblem">
       <img src="https://rigveda-online.github.io/1/images/emblem.png" alt="emblem" />
       <div>
         <h1><span>VIPRAR</span> Dictionary</h1>
-        <p class="subtitle">English → Tamil • Transliteration • Meanings</p>
+        <p class="subtitle">English ↔ Tamil • Translation • Meaning • Transliteration</p>
       </div>
     </div>
   </header>
 
   <main>
+
+    <!-- Search Area -->
     <section class="search-area">
       <div class="search-wrap">
-        <input id="searchInput" type="text" placeholder="Enter English word" autofocus />
+
+        <!-- Search Input -->
+        <input id="searchInput" type="text" placeholder="Type text here..." autofocus />
+
+        <!-- Language selector -->
+        <select id="sourceLang" class="lang-select">
+          <option value="en">English → Tamil</option>
+          <option value="ta">Tamil → English</option>
+        </select>
+
+        <!-- Search button -->
         <button id="searchBtn" title="Search">Search</button>
       </div>
     </section>
 
+    <!-- Search Results -->
     <section id="results" class="results">
-        <div class="search">
-            <h2>Search Result</h2>
-            <img src="divider.png" class="divider" />
-        </div>
-      
-      <div id="meaningBox" class="meaning">Type a word above to see its meaning and Tamil translation.</div>
-       <img src="divider.png" class="divider" />
+      <div class="search">
+        <h2>Search Result</h2>
+        <img src="divider.png" class="divider" />
+      </div>
+
+      <div id="meaningBox" class="meaning">
+        Type a word above to see its translation & definitions.
+      </div>
+
+      <img src="divider.png" class="divider" />
     </section>
 
+    <!-- Recent Searches -->
     <section class="recent">
       <h3>Recent Searches</h3>
       <ul id="recentList"></ul>
     </section>
+
   </main>
 
   <footer>© 2025 VIPRAR Dictionary — Inspired by Rigveda Online</footer>
